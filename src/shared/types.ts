@@ -1,3 +1,7 @@
+export interface Pagination<T> {
+  items: T[];
+  meta: { page: number; limit: number; total: number; pages: number };
+}
 export interface Product {
   id: string;
   title: string;

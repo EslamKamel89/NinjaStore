@@ -1,4 +1,4 @@
-import TestQueryBox from "@/features/test/TestQueryBox";
+import ProductList from "@/features/products/ui/ProductList";
 import { Link } from "react-router-dom";
 
 const HomePage: React.FC = () => {
@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
       <p className="mt-2">
         This is the Home page. We'll mount the products-list feature here.
       </p>
-      <TestQueryBox />
+      <ProductList />
       <div className="mt-4 space-x-3">
         <Link to="/products/p1" className="underline">
           Open Sample Product
