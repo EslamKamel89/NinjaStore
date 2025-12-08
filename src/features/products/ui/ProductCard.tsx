@@ -1,9 +1,15 @@
 import type { Product } from "@/shared/types";
 import { Link } from "react-router-dom";
+import { usePrefetchProduct } from "../api/productsApi";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+  const handlePrefetch = usePrefetchProduct(product.id);
   return (
-    <article className="border rounded p-4 flex flex-col">
+    <article
+      className="border rounded p-4 flex flex-col"
+      onMouseEnter={handlePrefetch}
+      onFocus={handlePrefetch}
+    >
       <Link to={`/products/${product.id}`}>
         <div className="h-40 w-full bg-gray-100 rounded mb-3 flex items-center justify-center">
           {/* placeholder image / will wire public images later */}

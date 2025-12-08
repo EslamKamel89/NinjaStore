@@ -1,10 +1,15 @@
 import { api } from "@/shared/api/axios";
-import type { Pagination, Product } from "@/shared/types";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import type { Category, Pagination, Product } from "@/shared/types";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
 export const PRODUCTS_QUERY_KEY = ["products"];
 export const PRODUCTS_INFINITE_QUERY_KEY = ["products_infinite"];
 export const PRODUCT_QUERY_KEY = ["product"];
+export const CATEGORY_QUERY_KEY = ["categories"];
 
 export function useProducts(params?: {
   page?: number;
@@ -65,4 +70,29 @@ export function useProduct(id?: string) {
     enabled: Boolean(id),
     staleTime: 1000 * 60,
   });
+}
+
+export function useCategories() {
+  return useQuery<Category[]>({
+    queryKey: [...CATEGORY_QUERY_KEY],
+    queryFn: async () => {
+      const { data } = await api.get(`/categories`);
+      return data as Category[];
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+}
+
+export function usePrefetchProduct(id?: string) {
+  const queryClient = useQueryClient();
+  return () =>
+    queryClient.prefetchQuery({
+      queryKey: [...PRODUCT_QUERY_KEY, id],
+      queryFn: async () => {
+        if (!id) throw new Error("Missing product id");
+        const { data } = await api.get(`/products/${id}`);
+        return data as Product;
+      },
+      staleTime: 1000 * 60,
+    });
 }
