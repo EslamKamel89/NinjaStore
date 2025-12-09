@@ -14,7 +14,13 @@ const HomePage: React.FC = () => {
         This is the Home page. We'll mount the products-list feature here.
       </p>
       <ProductFilters page={page} q={q} category={category} />
-      <ProductList page={page} q={q} category={category} />
+      <ProductList
+        page={page}
+        q={q}
+        category={category}
+        limit={4}
+        infinite={true}
+      />
       <div className="mt-4 space-x-3">
         <Link to="/products/p1" className="underline">
           Open Sample Product

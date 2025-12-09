@@ -51,8 +51,9 @@ export function useProductsInfinite(params?: {
       return data as Pagination<Product>;
     },
     getNextPageParam: (lastPage) => {
-      if (lastPage.meta.page < lastPage.meta.pages)
-        return lastPage.meta.page + 1;
+      if (!lastPage || !lastPage.meta) return undefined;
+      const { page, pages } = lastPage.meta;
+      if (page < pages) return lastPage.meta.page + 1;
       return undefined;
     },
     staleTime: 1000 * 60,
