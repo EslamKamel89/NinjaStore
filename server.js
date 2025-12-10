@@ -1,7 +1,7 @@
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
-// import {nanoid} from 'nanoid'
+import { nanoid } from "nanoid";
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());

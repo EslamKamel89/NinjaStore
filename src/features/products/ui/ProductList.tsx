@@ -9,9 +9,17 @@ const ProductList: React.FC<{
   infinite?: boolean;
 }> = ({ page = 1, limit = 10, q, category, infinite = false }) => {
   if (infinite) {
-    return <InfiniteMode limit={limit} q={q} category={category} />;
+    return (
+      <div className="mt-4">
+        <InfiniteMode limit={limit} q={q} category={category} />
+      </div>
+    );
   }
-  return <NormalMode page={page} limit={limit} q={q} category={category} />;
+  return (
+    <div className="mt-4">
+      <NormalMode page={page} limit={limit} q={q} category={category} />
+    </div>
+  );
 };
 
 export default ProductList;
